@@ -1,18 +1,18 @@
 window.onload = getPokemons();
 
 
-function getPokemons() {
+async function getPokemons() {
     const div = document.getElementById('pokemons');
     for (var i = 1; i <= 20; i++) {
-         getCard(i).then((pokemon) => {
+        await getCard(i).then((pokemon) => {
             div.innerHTML += pokemon
         });
     }
 }
 
-function getCard(id) {
+async function getCard(id) {
     types = "";
-    const card =  getData(id).then((data) => {
+    const card = await getData(id).then((data) => {
         li = `<li class="pokemon" onclick="showModal(${data.id})">
                     <span class="number">#00${data.id}</span>
                     <span class="name">${data.name}</span>
@@ -34,8 +34,8 @@ function getCard(id) {
 
 }
 
-function getData(id) {
-    const pokemon =  fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`, {
+async function getData(id) {
+    const pokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`, {
         "body": null,
         "method": "GET",
         "mode": "cors",
